@@ -1,0 +1,65 @@
+PROJECT TECHNICAL SYSTEM BLUEPRINT
+==================================
+
+Prepared For: Google
+Project Focus: Business Website
+Timeline Scheme: Normal
+Total Scope Cost: ₹38,400
+Generated On: 2026-07-15
+
+
+1. Executive & Business Summary
+-------------------------------
+Technical blueprint outlining the software architecture and system components for the 'Business Website' solution tailored for Google.
+
+2. Recommended System Architecture
+----------------------------------
+Layered MVC Architecture. Front-end client communicates with a secure server-side API Gateway that interacts with internal services and a central transaction database.
+
+3. Product Tech Stack Details
+-----------------------------
+Frontend: React.js (SaaS UI template), Backend: Python Flask / Node.js, Database: PostgreSQL / SQLite, Cloud: Docker containerization, AWS Hosting support.
+
+4. Database Schema Design
+-------------------------
+Users Table (id, email, password_hash, company, created_at)
+Projects Table (id, user_id, name, budget, status, created_at)
+Quotations Table (id, project_id, details_json, created_at)
+Proposals Table (id, project_id, scope, created_at)
+
+5. User Roles & Permission Matrix
+---------------------------------
+Administrator: Full dashboard control, CRUD capabilities on users/leads, analytics visibility.
+Client: Settings updates, file uploads access, download quotation & proposals.
+Guest: Basic consultation chat session operations.
+
+6. Screen Interface Flow
+------------------------
+1. Authentication (Login & Signup)
+2. Customer Portal Dashboard (Leads, Roadmap, Files list)
+3. Consultation Screen (Chat interface, cards selectors)
+4. Admin CRM Dashboard (Leads tracking table, statistics grid)
+
+7. REST API Integration Endpoints
+---------------------------------
+1. GET /api/start - Initiate chat session
+2. POST /api/chat - Submit message/card
+3. POST /api/upload - Upload requirement documents
+4. GET /api/files - Fetch user documents
+5. GET /api/dashboard/summary - Load stats & user data
+
+8. Security & Encryption Standards
+----------------------------------
+PBKDF2 Password hashing algorithm, secure HTTP-only sessions, CSRF token validation, SQL injection prevention through parameterized queries, XSS sanitization.
+
+9. Deployment Pipeline & Infrastructure
+---------------------------------------
+Containerization using Docker, Automated pipeline using GitHub Actions, deployment onto AWS EC2 instance with SSL encryption via Nginx reverse proxy.
+
+10. Maintenance & Quality Assurance
+-----------------------------------
+Unit testing using Pytest, manual UI verification, compliance debugging support under complimentary 90-day post-launch warranty.
+
+11. Future Expansion Roadmap
+----------------------------
+Phase 2 scale upgrades including PostgreSQL replication, Redis query caching layer, and integration of specialized AI chatbot agents.

@@ -1,0 +1,396 @@
+/* ==========================================================
+   TechSoul AI
+   Cards CSS
+========================================================== */
+
+/* ==========================
+   COMMON SELECTOR
+========================== */
+
+.selector-header{
+
+    text-align:center;
+
+    margin-bottom:18px;
+
+}
+
+.selector-header h3{
+
+    font-size:22px;
+
+    color:#111827;
+
+    margin-bottom:8px;
+
+}
+
+.selector-header p{
+
+    color:#64748b;
+
+    font-size:14px;
+
+}
+
+/* ==========================================================
+   PROJECT SECTION
+========================================================== */
+
+.project-selector{
+
+    display:flex;
+
+    flex-direction:column;
+
+    max-height:420px;
+
+}
+
+/* ==========================
+   PROJECT GRID
+========================== */
+
+.project-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:14px;
+
+    max-height:300px;
+
+    overflow-y:auto;
+
+    padding:8px;
+
+}
+
+/* Scroll */
+
+.project-grid::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.project-grid::-webkit-scrollbar-thumb{
+
+    background:#d1d5db;
+
+    border-radius:20px;
+
+}
+
+/* ==========================
+   PROJECT CARD
+========================== */
+
+.project-card{
+
+    background:#ffffff;
+
+    border:2px solid #e5e7eb;
+
+    border-radius:14px;
+
+    padding:18px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+    min-height:170px;
+
+}
+
+.project-card:hover{
+
+    border-color:#2563eb;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 8px 20px rgba(37,99,235,.12);
+
+}
+
+.project-card.selected{
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    border-color:#2563eb;
+
+}
+
+.project-icon{
+
+    font-size:34px;
+
+    margin-bottom:12px;
+
+}
+
+.project-card h4{
+
+    margin-bottom:8px;
+
+    font-size:17px;
+
+}
+
+.project-card p{
+
+    font-size:13px;
+
+    line-height:1.4;
+
+    margin-bottom:12px;
+
+}
+
+.price{
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================================
+   FEATURE SECTION
+========================================================== */
+
+.feature-selector{
+
+    display:flex;
+
+    flex-direction:column;
+
+    max-height:430px;
+
+}
+
+/* ==========================
+   FEATURE GRID
+========================== */
+
+.feature-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:12px;
+
+    max-height:270px;
+
+    overflow-y:auto;
+
+    padding:8px;
+
+}
+
+/* Scroll */
+
+.feature-grid::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.feature-grid::-webkit-scrollbar-thumb{
+
+    background:#d1d5db;
+
+    border-radius:20px;
+
+}
+
+/* ==========================
+   FEATURE CARD
+========================== */
+
+.feature-card{
+
+    height:95px;
+
+    border:2px solid #e5e7eb;
+
+    border-radius:12px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    background:#ffffff;
+
+}
+
+.feature-card:hover{
+
+    border-color:#2563eb;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 5px 15px rgba(37,99,235,.12);
+
+}
+
+.feature-card.selected{
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    border-color:#2563eb;
+
+}
+
+.feature-icon{
+
+    font-size:24px;
+
+    margin-bottom:6px;
+
+}
+
+.feature-card span{
+
+    font-size:12px;
+
+    font-weight:500;
+
+    line-height:1.2;
+
+}
+
+/* ==========================================================
+   CONTINUE BUTTON
+========================================================== */
+
+.feature-actions{
+
+    position:sticky;
+
+    bottom:0;
+
+    background:#ffffff;
+
+    padding-top:15px;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+.continue-btn{
+
+    width:220px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.continue-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+/* ==========================================================
+   SELECTION PANELS
+========================================================== */
+
+.selection-panel{
+
+    padding:15px;
+
+    border-top:1px solid #e5e7eb;
+
+    background:#ffffff;
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:1000px){
+
+    .project-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .feature-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:700px){
+
+    .feature-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .project-card{
+
+        min-height:150px;
+
+    }
+
+}
+
+@media(max-width:500px){
+
+    .continue-btn{
+
+        width:100%;
+
+    }
+
+}

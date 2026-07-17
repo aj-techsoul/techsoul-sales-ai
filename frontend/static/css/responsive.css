@@ -1,0 +1,209 @@
+/* ==========================================
+   LARGE LAPTOP
+========================================== */
+
+@media (max-width:1400px){
+
+    #info-container{
+
+        width:280px;
+
+    }
+
+}
+
+/* ==========================================
+   LAPTOP
+========================================== */
+
+@media (max-width:1200px){
+
+    .dashboard{
+
+        flex-direction:row;
+
+    }
+
+    .sidebar{
+
+        width:220px;
+
+    }
+
+    #info-container{
+
+        width:260px;
+
+    }
+
+    .header-center{
+
+        width:240px;
+
+    }
+
+    .project-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .feature-grid{
+
+        grid-template-columns:repeat(3,1fr);
+
+    }
+
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width:992px){
+
+    .sidebar{
+
+        width:90px;
+
+        padding:20px 10px;
+
+    }
+
+    .logo h2,
+    .logo span,
+    .nav-item span,
+    .user-info{
+
+        display:none;
+
+    }
+
+    .nav-item{
+
+        justify-content:center;
+
+    }
+
+    #info-container{
+
+        display:none;
+
+    }
+
+    .header{
+
+        padding:15px 20px;
+
+    }
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width:768px){
+
+    .dashboard{
+
+        flex-direction:column;
+
+    }
+
+    .sidebar{
+
+        display:none;
+
+    }
+
+    .header{
+
+        height:auto;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+
+    }
+
+    .header-center{
+
+        width:100%;
+
+    }
+
+    .workspace{
+
+        flex:1;
+
+    }
+
+    .project-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .feature-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .chat-body{
+
+        padding:15px;
+
+    }
+
+    .chat-input{
+
+        padding:15px;
+
+    }
+
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width:480px){
+
+    .feature-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .bot-message,
+    .user-message{
+
+        max-width:95%;
+
+    }
+
+    .chat-title h3{
+
+        font-size:16px;
+
+    }
+
+    .chat-input{
+
+        gap:10px;
+
+    }
+
+    .chat-input button{
+
+        width:45px;
+
+        height:45px;
+
+    }
+
+}

@@ -1,0 +1,266 @@
+/* ==========================================
+   GOOGLE FONT
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+/* ==========================================
+   CSS VARIABLES
+========================================== */
+
+:root{
+
+    --primary:#2563EB;
+    --primary-dark:#1D4ED8;
+
+    --secondary:#38BDF8;
+
+    --success:#22C55E;
+    --warning:#F59E0B;
+    --danger:#EF4444;
+
+    --background:#F8FAFC;
+    --surface:#FFFFFF;
+
+    --text:#1E293B;
+    --text-light:#64748B;
+
+    --border:#E2E8F0;
+
+    --shadow:
+        0 8px 20px rgba(0,0,0,.08);
+
+    --radius:14px;
+
+}
+
+
+/* ==========================================
+   RESET
+========================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+/* ==========================================
+   BODY
+========================================== */
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    height:100vh;
+
+    overflow:hidden;
+
+}
+
+
+/* ==========================================
+   LINKS
+========================================== */
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+button{
+
+    font-family:'Poppins',sans-serif;
+
+    cursor:pointer;
+
+    border:none;
+
+    outline:none;
+
+}
+
+
+/* ==========================================
+   INPUT
+========================================== */
+
+input{
+
+    font-family:'Poppins',sans-serif;
+
+    outline:none;
+
+}
+
+
+/* ==========================================
+   IMAGES
+========================================== */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#CBD5E1;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#F8FAFC;
+
+}
+
+
+/* ==========================================
+   COMMON SECTION HEADER
+========================================== */
+
+.section-header{
+
+    margin-bottom:20px;
+
+}
+
+.section-header h3{
+
+    font-size:22px;
+
+    font-weight:600;
+
+    color:var(--text);
+
+    margin-bottom:8px;
+
+}
+
+.section-header p{
+
+    color:var(--text-light);
+
+    font-size:15px;
+
+}
+
+
+/* ==========================================
+   COMMON CARD
+========================================== */
+
+.card{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+}
+
+
+/* ==========================================
+   COMMON BUTTON
+========================================== */
+
+.primary-btn{
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:12px 24px;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+.primary-btn:hover{
+
+    background:var(--primary-dark);
+
+}
+
+
+/* ==========================================
+   FLEX HELPERS
+========================================== */
+
+.flex{
+
+    display:flex;
+
+}
+
+.flex-center{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.space-between{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+
+/* ==========================================
+   HIDE
+========================================== */
+
+.hidden{
+
+    display:none;
+
+}

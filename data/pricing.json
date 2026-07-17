@@ -1,0 +1,177 @@
+{
+    "projects": {
+        "Business Website": {
+            "price": 30000
+        },
+
+        "E-Commerce": {
+            "price": 80000
+        },
+
+        "Mobile App": {
+            "price": 120000
+        },
+
+        "CRM": {
+            "price": 150000
+        },
+
+        "ERP": {
+            "price": 300000
+        },
+
+        "AI Solution": {
+            "price": 250000
+        }
+    },
+
+    "features": {
+
+        "Login": {
+            "price": 8000,
+            "priority": 10
+        },
+
+        "Dashboard": {
+            "price": 12000,
+            "priority": 10
+        },
+
+        "Admin Panel": {
+            "price": 15000,
+            "priority": 9
+        },
+
+        "Payment Gateway": {
+            "price": 18000,
+            "priority": 9
+        },
+
+        "Inventory": {
+            "price": 20000,
+            "priority": 8
+        },
+
+        "Reports": {
+            "price": 10000,
+            "priority": 7
+        },
+
+        "Notifications": {
+            "price": 8000,
+            "priority": 6
+        },
+
+        "Analytics": {
+            "price": 18000,
+            "priority": 4
+        },
+
+        "API Integration": {
+            "price": 20000,
+            "priority": 5
+        },
+
+        "AI Chatbot": {
+            "price": 45000,
+            "priority": 2
+        },
+
+        "Multi Language": {
+            "price": 25000,
+            "priority": 3
+        }
+    },
+
+    "timeline": {
+
+        "Normal": {
+            "multiplier": 1.00
+        },
+
+        "Fast": {
+            "multiplier": 1.15
+        },
+
+        "Urgent": {
+            "multiplier": 1.30
+        }
+    },
+
+    "recommendations": {
+
+        "Business Website": [
+            "Login",
+            "Dashboard",
+            "Admin Panel"
+        ],
+
+        "E-Commerce": [
+            "Login",
+            "Dashboard",
+            "Payment Gateway",
+            "Inventory"
+        ],
+
+        "Mobile App": [
+            "Login",
+            "Dashboard",
+            "Notifications"
+        ],
+
+        "CRM": [
+            "Dashboard",
+            "Reports",
+            "Notifications"
+        ],
+
+        "ERP": [
+            "Dashboard",
+            "Inventory",
+            "Reports",
+            "Analytics"
+        ],
+
+        "AI Solution": [
+            "AI Chatbot",
+            "API Integration",
+            "Dashboard"
+        ]
+    },
+
+    "upsell": {
+
+        "Business Website": [
+            "AI Chatbot",
+            "Multi Language",
+            "API Integration"
+        ],
+
+        "E-Commerce": [
+            "AI Chatbot",
+            "Analytics",
+            "Multi Language"
+        ],
+
+        "Mobile App": [
+            "API Integration",
+            "AI Chatbot"
+        ],
+
+        "CRM": [
+            "Analytics",
+            "AI Chatbot"
+        ],
+
+        "ERP": [
+            "AI Chatbot",
+            "API Integration",
+            "Multi Language"
+        ],
+
+        "AI Solution": [
+            "Analytics",
+            "Multi Language"
+        ]
+    }
+}

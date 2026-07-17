@@ -1,0 +1,156 @@
+<!-- ==========================================
+     CLIENT INFORMATION PANEL
+========================================== -->
+
+<div class="info-panel">
+
+    <h2>Client Summary</h2>
+
+    <div class="summary-card">
+
+        <div class="summary-item">
+
+            <span class="label">
+                Client Name
+            </span>
+
+            <span id="client-name" class="value">
+                -
+            </span>
+
+        </div>
+
+        <div class="summary-item">
+
+            <span class="label">
+                Company
+            </span>
+
+            <span id="client-company" class="value">
+                -
+            </span>
+
+        </div>
+
+        <div class="summary-item">
+
+            <span class="label">
+                Project
+            </span>
+
+            <span id="client-project" class="value">
+                -
+            </span>
+
+        </div>
+
+        <div class="summary-item">
+
+            <span class="label">
+                Features
+            </span>
+
+            <span id="client-features" class="value">
+                -
+            </span>
+
+        </div>
+
+        <div class="summary-item">
+
+            <span class="label">
+                Budget
+            </span>
+
+            <span id="client-budget" class="value">
+                -
+            </span>
+
+        </div>
+
+        <div class="summary-item">
+
+            <span class="label">
+                Timeline
+            </span>
+
+            <span id="client-timeline" class="value">
+                -
+            </span>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="status-box">
+
+        <h3>Project Status</h3>
+
+        <span id="project-status" class="status">
+
+            Waiting...
+
+        </span>
+
+    </div>
+
+    <!-- BUDGET SIMULATOR PANEL -->
+    <div id="simulator-container" style="display:none; margin-top:25px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+        <h3 style="font-size:14px; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.5px; margin-bottom:15px;">Budget Simulator</h3>
+        
+        <!-- Slider & Input -->
+        <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:15px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label style="font-size:12px; color:var(--text-muted);">Simulator Budget</label>
+                <div style="display:flex; align-items:center; gap:3px;">
+                    <span style="font-size:13px; color:var(--text-muted);">₹</span>
+                    <input type="number" id="sim-budget-input" value="50000" style="width:90px; background:rgba(255,255,255,0.05); border:1px solid var(--border-color); border-radius:6px; color:#fff; padding:3px 6px; font-size:13px; text-align:right; outline:none;">
+                </div>
+            </div>
+            <input type="range" id="sim-budget-slider" min="10000" max="300000" step="5000" value="50000" style="width:100%; cursor:pointer;">
+        </div>
+
+        <!-- Simulator Details -->
+        <div class="summary-card" style="padding:15px; display:flex; flex-direction:column; gap:12px; font-size:13px;">
+            <div style="display:flex; justify-content:space-between;">
+                <span class="label">Est. Project Cost</span>
+                <span id="sim-est-cost" class="value" style="font-weight:600; color:#38bdf8;">-</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+                <span class="label">Budget Gap</span>
+                <span id="sim-gap" class="value" style="font-weight:600;">-</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-bottom: 1px solid rgba(255,255,255,0.04); padding-bottom:8px;">
+                <span class="label">Rec. Package</span>
+                <span id="sim-recommended-package" class="value" style="color:#34d399; font-weight:600;">-</span>
+            </div>
+            <div>
+                <span class="label" style="display:block; font-size:10px; text-transform:uppercase; margin-bottom:4px; color:#34d399;">Included Features</span>
+                <div id="sim-features-included" style="display:flex; flex-wrap:wrap; gap:5px;">-</div>
+            </div>
+            <div>
+                <span class="label" style="display:block; font-size:10px; text-transform:uppercase; margin-bottom:4px; color:#f87171;">Excluded Features</span>
+                <div id="sim-features-excluded" style="display:flex; flex-wrap:wrap; gap:5px; opacity:0.7;">-</div>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-top: 1px solid rgba(255,255,255,0.04); padding-top:8px;">
+                <span class="label">Tech Stack</span>
+                <span id="sim-tech-stack" class="value" style="font-size:12px; text-align:right; max-width:140px; word-break:break-word; color:#38bdf8;">-</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+                <span class="label">Timeline</span>
+                <span id="sim-timeline" class="value" style="color:#fbbf24;">-</span>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.04); padding-top:8px;">
+                <span class="label" style="display:block; font-size:10px; text-transform:uppercase; margin-bottom:4px;">Business Value & ROI</span>
+                <p id="sim-roi" style="color:var(--text-muted); font-size:11px; line-height:1.4;">-</p>
+            </div>
+            
+            <button class="menu-btn active" style="width:100%; font-size:12px; padding:10px; display:flex; justify-content:center; align-items:center; gap:8px;" onclick="openComparisonModal()">
+                <i class="fa-solid fa-scale-balanced"></i> Compare Packages
+            </button>
+        </div>
+    </div>
+
+</div>

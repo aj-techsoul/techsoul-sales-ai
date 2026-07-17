@@ -1,0 +1,1073 @@
+/* ==========================================================
+   TechSoul AI
+   Dashboard CSS
+   Part 1
+   Global Layout, Sidebar & Header
+========================================================== */
+
+/* ==========================
+   RESET
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+
+    width:100%;
+    height:100%;
+
+    font-family:"Poppins",sans-serif;
+
+    background:#f4f7fb;
+
+    color:#1f2937;
+
+    overflow:hidden;
+
+}
+
+/* ==========================
+   DASHBOARD
+========================== */
+
+.dashboard{
+
+    display:flex;
+
+    width:100vw;
+
+    height:100vh;
+
+}
+
+/* ==========================
+   SIDEBAR
+========================== */
+
+.sidebar{
+
+    width:260px;
+
+    background:#0f172a;
+
+    color:#ffffff;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    padding:30px 20px;
+
+    border-right:1px solid #1e293b;
+
+}
+
+/* ==========================
+   LOGO
+========================== */
+
+.logo{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+}
+
+.logo h2{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#38bdf8;
+
+}
+
+.logo span{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    color:#cbd5e1;
+
+}
+
+/* ==========================
+   MENU
+========================== */
+
+.menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+/* ==========================
+   MENU BUTTON
+========================== */
+
+.menu-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    width:100%;
+
+    padding:14px 18px;
+
+    background:transparent;
+
+    border:none;
+
+    border-radius:10px;
+
+    color:#e2e8f0;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+.menu-btn:hover{
+
+    background:#1e293b;
+
+}
+
+.menu-btn.active{
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+}
+
+.menu-btn i{
+
+    width:20px;
+
+    text-align:center;
+
+    font-size:17px;
+
+}
+
+/* ==========================
+   SIDEBAR FOOTER
+========================== */
+
+.sidebar-footer{
+
+    text-align:center;
+
+    font-size:12px;
+
+    color:#94a3b8;
+
+}
+
+/* ==========================
+   MAIN
+========================== */
+
+.main{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow:hidden;
+
+}
+
+/* ==========================
+   HEADER
+========================== */
+
+.header{
+
+    height:80px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #e5e7eb;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 35px;
+
+}
+
+/* ==========================
+   HEADER LEFT
+========================== */
+
+.header-left h2{
+
+    font-size:26px;
+
+    color:#111827;
+
+    font-weight:700;
+
+}
+
+.header-left p{
+
+    margin-top:4px;
+
+    color:#64748b;
+
+    font-size:14px;
+
+}
+
+/* ==========================
+   HEADER RIGHT
+========================== */
+
+.header-right{
+
+    width:320px;
+
+}
+
+/* ==========================
+   PROGRESS AREA
+========================== */
+
+.progress-area{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.progress-area span{
+
+    font-size:13px;
+
+    color:#64748b;
+
+}
+
+/* ==========================
+   PROGRESS BAR
+========================== */
+
+.progress-bar{
+
+    width:100%;
+
+    height:10px;
+
+    background:#e5e7eb;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+/* ==========================
+   PROGRESS FILL
+========================== */
+
+.progress-fill{
+
+    width:0%;
+
+    height:100%;
+
+    background:#2563eb;
+
+    transition:.4s ease;
+
+}
+/* ==========================================================
+   Dashboard CSS
+   Part 2
+   Workspace, Chat Area, Messages & Input
+========================================================== */
+
+
+/* ==========================
+   WORKSPACE
+========================== */
+
+.workspace{
+
+    flex:1;
+
+    display:flex;
+
+    gap:25px;
+
+    padding:25px;
+
+    overflow:hidden;
+
+}
+
+
+/* ==========================
+   CHAT AREA
+========================== */
+
+.chat-area{
+
+    flex:3;
+
+    display:flex;
+
+    flex-direction:column;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+
+    overflow:hidden;
+
+}
+
+
+/* ==========================
+   CHAT BOX
+========================== */
+
+.chat-box{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+    background:#f8fafc;
+
+}
+
+
+/* Scrollbar */
+
+.chat-box::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.chat-box::-webkit-scrollbar-thumb{
+
+    background:#d1d5db;
+
+    border-radius:20px;
+
+}
+
+
+/* ==========================
+   BOT MESSAGE
+========================== */
+
+.bot-message{
+
+    align-self:flex-start;
+
+    max-width:75%;
+
+    padding:16px 20px;
+
+    background:#ffffff;
+
+    border-left:5px solid #2563eb;
+
+    border-radius:14px;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.06);
+
+    line-height:1.7;
+
+    animation:fadeUp .35s ease;
+
+}
+
+
+/* ==========================
+   USER MESSAGE
+========================== */
+
+.user-message{
+
+    align-self:flex-end;
+
+    max-width:75%;
+
+    padding:16px 20px;
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    border-radius:14px;
+
+    line-height:1.6;
+
+    animation:fadeUp .35s ease;
+
+}
+
+
+/* ==========================
+   SELECTION PANEL
+========================== */
+
+.selection-panel{
+
+    padding:18px 25px;
+
+    background:#ffffff;
+
+    border-top:1px solid #e5e7eb;
+
+}
+
+
+/* ==========================
+   INPUT AREA
+========================== */
+
+.input-area{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:18px 22px;
+
+    background:#ffffff;
+
+    border-top:1px solid #e5e7eb;
+
+}
+
+
+/* ==========================
+   TEXT INPUT
+========================== */
+
+#user-input{
+
+    flex:1;
+
+    height:52px;
+
+    padding:0 18px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+
+#user-input:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+
+}
+
+
+/* Disabled */
+
+#user-input:disabled{
+
+    background:#f1f5f9;
+
+    cursor:not-allowed;
+
+}
+
+
+/* ==========================
+   SEND BUTTON
+========================== */
+
+#send-btn{
+
+    width:55px;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.3s;
+
+}
+
+
+#send-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+#send-btn:disabled{
+
+    background:#94a3b8;
+
+    cursor:not-allowed;
+
+}
+
+
+/* ==========================
+   TYPING INDICATOR
+========================== */
+
+.typing-indicator{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:18px 24px;
+
+}
+
+
+.typing-dot{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:#94a3b8;
+
+    animation:typing 1s infinite;
+
+}
+
+
+.typing-dot:nth-child(2){
+
+    animation-delay:.2s;
+
+}
+
+
+.typing-dot:nth-child(3){
+
+    animation-delay:.4s;
+
+}
+
+
+/* ==========================
+   ANIMATIONS
+========================== */
+
+@keyframes typing{
+
+    0%{
+
+        transform:translateY(0);
+
+        opacity:.4;
+
+    }
+
+    50%{
+
+        transform:translateY(-6px);
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+        opacity:.4;
+
+    }
+
+}
+
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+/* ==========================================================
+   Dashboard CSS
+   Part 3
+   Info Panel, Responsive Design & Utilities
+========================================================== */
+
+
+/* ==========================
+   INFO PANEL
+========================== */
+
+.info-panel{
+
+    width:340px;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+
+    overflow-y:auto;
+
+}
+
+
+.info-panel h2{
+
+    font-size:22px;
+
+    color:#111827;
+
+    margin-bottom:25px;
+
+}
+
+
+/* ==========================
+   SUMMARY CARD
+========================== */
+
+.summary-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+
+/* ==========================
+   SUMMARY ITEM
+========================== */
+
+.summary-item{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+    padding-bottom:12px;
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+
+.summary-item:last-child{
+
+    border-bottom:none;
+
+}
+
+
+/* ==========================
+   LABEL
+========================== */
+
+.label{
+
+    font-size:13px;
+
+    font-weight:600;
+
+    color:#64748b;
+
+}
+
+
+/* ==========================
+   VALUE
+========================== */
+
+.value{
+
+    font-size:15px;
+
+    color:#111827;
+
+    font-weight:500;
+
+    word-break:break-word;
+
+}
+
+
+/* ==========================
+   STATUS BOX
+========================== */
+
+.status-box{
+
+    margin-top:25px;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    background:#f8fafc;
+
+    border:1px solid #e5e7eb;
+
+}
+
+
+.status-box h3{
+
+    font-size:17px;
+
+    margin-bottom:12px;
+
+    color:#1f2937;
+
+}
+
+
+.status{
+
+    display:inline-block;
+
+    padding:8px 16px;
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+
+/* ==========================
+   HR
+========================== */
+
+.info-panel hr{
+
+    margin:25px 0;
+
+    border:none;
+
+    border-top:1px solid #e5e7eb;
+
+}
+
+
+/* ==========================
+   BUTTONS
+========================== */
+
+button{
+
+    font-family:"Poppins",sans-serif;
+
+}
+
+
+/* ==========================
+   LINKS
+========================== */
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+
+/* ==========================
+   UTILITIES
+========================== */
+
+.hidden{
+
+    display:none !important;
+
+}
+
+
+.show{
+
+    display:block !important;
+
+}
+
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:1200px){
+
+    .workspace{
+
+        gap:18px;
+
+        padding:18px;
+
+    }
+
+    .info-panel{
+
+        width:300px;
+
+    }
+
+}
+
+
+@media(max-width:992px){
+
+    .dashboard{
+
+        flex-direction:column;
+
+    }
+
+    .sidebar{
+
+        width:100%;
+
+        height:auto;
+
+        flex-direction:row;
+
+        align-items:center;
+
+        justify-content:space-between;
+
+        padding:15px 20px;
+
+    }
+
+    .logo{
+
+        margin-bottom:0;
+
+        text-align:left;
+
+    }
+
+    .menu{
+
+        flex-direction:row;
+
+        gap:10px;
+
+    }
+
+    .menu-btn{
+
+        padding:10px 14px;
+
+    }
+
+    .main{
+
+        width:100%;
+
+    }
+
+    .workspace{
+
+        flex-direction:column;
+
+        overflow:auto;
+
+    }
+
+    .info-panel{
+
+        width:100%;
+
+    }
+
+}
+
+
+@media(max-width:768px){
+
+    .header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        height:auto;
+
+        gap:15px;
+
+        padding:20px;
+
+    }
+
+    .header-right{
+
+        width:100%;
+
+    }
+
+    .bot-message,
+
+    .user-message{
+
+        max-width:95%;
+
+    }
+
+    .input-area{
+
+        padding:15px;
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .sidebar{
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+    .menu{
+
+        width:100%;
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
+    .menu-btn{
+
+        flex:1;
+
+        justify-content:center;
+
+    }
+
+}
+
+
+/* ==========================
+   SMOOTH SCROLL
+========================== */
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+/* ==========================
+   END
+========================== */

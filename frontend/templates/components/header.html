@@ -1,0 +1,52 @@
+<!-- ==========================================
+     HEADER
+========================================== -->
+
+<header class="header">
+
+    <div class="header-left">
+
+        <h2>TechSoul AI</h2>
+
+        <p>
+            AI Business Consultant
+        </p>
+
+    </div>
+
+    <div class="header-right" style="display:flex; align-items:center; gap:25px;">
+
+        <div class="progress-area">
+
+            <span>
+                Consultation Progress
+            </span>
+
+            <div class="progress-bar">
+
+                <div
+                    id="progress-fill"
+                    class="progress-fill">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="auth-navigation" style="display:flex; align-items:center; gap:15px;">
+            {% if session.get("user_id") %}
+                <a href="/dashboard" style="color:#ffffff; text-decoration:none; font-weight:500; font-size:14px;"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="/logout" style="color:#f87171; text-decoration:none; font-weight:500; font-size:14px;"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+            {% elif session.get("admin_logged_in") %}
+                <a href="/admin" style="color:#ffffff; text-decoration:none; font-weight:500; font-size:14px;"><i class="fa-solid fa-user-shield"></i> Admin Panel</a>
+                <a href="/logout" style="color:#f87171; text-decoration:none; font-weight:500; font-size:14px;"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+            {% else %}
+                <a href="/login" style="color:#38bdf8; text-decoration:none; font-weight:500; font-size:14px;"><i class="fa-solid fa-right-to-bracket"></i> Sign In</a>
+                <a href="/register" style="color:#10b981; text-decoration:none; font-weight:500; font-size:14px;"><i class="fa-solid fa-user-plus"></i> Register</a>
+            {% endif %}
+        </div>
+
+    </div>
+
+</header>

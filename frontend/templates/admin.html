@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSoul AI - Admin Dashboard</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 260px;
+            background: #0b0f19;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #38bdf8;
+        }
+
+        .logo span {
+            display: block;
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            padding: 14px 18px;
+            background: transparent;
+            border: none;
+            border-radius: 10px;
+            color: #e2e8f0;
+            cursor: pointer;
+            font-size: 15px;
+            text-decoration: none;
+            transition: .3s;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .menu-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .menu-btn i {
+            width: 20px;
+            text-align: center;
+            font-size: 17px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Main Workspace */
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .btn-logout {
+            padding: 10px 20px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger);
+            color: #fca5a5;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .kpi-info h3 {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .kpi-info p {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .kpi-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .kpi-card:nth-child(1) .kpi-icon { background: rgba(59, 130, 246, 0.15); color: var(--primary); }
+        .kpi-card:nth-child(2) .kpi-icon { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .kpi-card:nth-child(3) .kpi-icon { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+        .kpi-card:nth-child(4) .kpi-icon { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .chart-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: white;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Leads list and tables */
+        .leads-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-wrapper {
+            position: relative;
+            max-width: 320px;
+            width: 100%;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: white;
+            outline: none;
+        }
+
+        .search-wrapper input:focus {
+            border-color: var(--primary);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-filter {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .btn-filter.active, .btn-filter:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            padding: 15px;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Status Badges */
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .badge-new { background: rgba(59, 130, 246, 0.15); color: #93c5fd; }
+        .badge-contacted { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; }
+        .badge-proposal { background: rgba(6, 182, 212, 0.15); color: #a5f3fc; }
+        .badge-negotiation { background: rgba(245, 158, 11, 0.15); color: #fde047; }
+        .badge-won { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+        .badge-lost { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-download {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-download:hover {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        .status-select {
+            padding: 8px;
+            background: #0f172a;
+            color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .status-select:focus {
+            border-color: var(--primary);
+        }
+    </style>
+    <!-- Theme System Support -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}">
+    <script src="{{ url_for('static', filename='js/theme_manager.js') }}"></script>
+    <script>
+        (function() {
+            const localTheme = localStorage.getItem('techsoul_theme');
+            const sessionTheme = "{{ session.get('theme') or '' }}";
+            const themeToApply = sessionTheme || localTheme || 'blue';
+            document.documentElement.setAttribute('data-theme', themeToApply);
+            document.addEventListener('DOMContentLoaded', () => {
+                document.body.setAttribute('data-theme', themeToApply);
+                if (typeof ThemeManager !== 'undefined') {
+                    ThemeManager.init(sessionTheme);
+                }
+            });
+        })();
+    </script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>TechSoul AI</h2>
+            <span>Admin Control Room</span>
+        </div>
+        <nav class="menu">
+            <a href="/" class="menu-btn">
+                <i class="fas fa-comments"></i>
+                <span>Chat Interface</span>
+            </a>
+            <a href="/admin" class="menu-btn active">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard Stats</span>
+            </a>
+            <a href="#" class="menu-btn" onclick="openAppearanceModal(); return false;">
+                <i class="fas fa-palette"></i>
+                <span>Appearance</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <small>© 2026 TechSoul AI</small>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <div>
+                <h1>Sales Analytics Dashboard</h1>
+            </div>
+            <a href="/logout" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+        </header>
+
+        <!-- KPI Grid -->
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-info">
+                    <h3>Total Leads</h3>
+                    <p id="kpi-leads">0</p>
+                </div>
+                <div class="kpi-icon"><i class="fa-solid fa-users"></i></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-info">
+                    <h3>Won Deals Revenue</h3>
+                    <p id="kpi-revenue">₹0</p>
+                </div>
+                <div class="kpi-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-info">
+                    <h3>Won Deals</h3>
+                    <p id="kpi-won">0</p>
+                </div>
+                <div class="kpi-icon"><i class="fa-solid fa-thumbs-up"></i></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-info">
+                    <h3>Conversion Rate</h3>
+                    <p id="kpi-conversion">0%</p>
+                </div>
+                <div class="kpi-icon"><i class="fa-solid fa-percent"></i></div>
+            </div>
+        </section>
+
+        <!-- Charts Grid -->
+        <section class="charts-grid">
+            <div class="chart-card">
+                <h3>Revenue Growth Trend</h3>
+                <div class="chart-wrapper">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Projects Breakdown</h3>
+                <div class="chart-wrapper">
+                    <canvas id="projectChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leads Table -->
+        <section class="leads-card">
+            <h3>Consultation Leads Management</h3>
+            
+            <div class="table-controls">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="lead-search" placeholder="Search by name, company, email..." onkeyup="filterLeads()">
+                </div>
+                
+                <div class="filter-buttons" id="status-filters">
+                    <button class="btn-filter active" onclick="filterByStatus('All')">All</button>
+                    <button class="btn-filter" onclick="filterByStatus('New Lead')">New Lead</button>
+                    <button class="btn-filter" onclick="filterByStatus('Contacted')">Contacted</button>
+                    <button class="btn-filter" onclick="filterByStatus('Proposal Sent')">Proposal Sent</button>
+                    <button class="btn-filter" onclick="filterByStatus('Negotiation')">Negotiation</button>
+                    <button class="btn-filter" onclick="filterByStatus('Won')">Won</button>
+                    <button class="btn-filter" onclick="filterByStatus('Lost')">Lost</button>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Lead ID</th>
+                            <th>Client Info</th>
+                            <th>Project details</th>
+                            <th>Total Price</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                            <th>Proposal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leads-table-body">
+                        <!-- Filled Dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let allLeads = [];
+        let activeStatusFilter = "All";
+        
+        let revenueChart = null;
+        let projectChart = null;
+
+        // ==========================================
+        // FETCH DATA ON LOAD
+        // ==========================================
+        window.addEventListener("load", function() {
+            fetchStats();
+            fetchLeads();
+        });
+
+        // ==========================================
+        // FETCH ANALYTICS KPI & CHART DATA
+        // ==========================================
+        function fetchStats() {
+            fetch("/api/admin/stats")
+            .then(res => res.json())
+            .then(payload => {
+                if (payload.success) {
+                    const data = payload.data;
+                    
+                    // Set KPIs
+                    document.getElementById("kpi-leads").textContent = data.kpis.total_leads;
+                    document.getElementById("kpi-revenue").textContent = "₹" + data.kpis.revenue.toLocaleString();
+                    document.getElementById("kpi-won").textContent = data.kpis.won_deals;
+                    document.getElementById("kpi-conversion").textContent = data.kpis.conversion_rate + "%";
+                    
+                    // Render charts
+                    renderCharts(data);
+                }
+            })
+            .catch(err => console.error("Stats fetching error:", err));
+        }
+
+        // ==========================================
+        // FETCH LEADS DATA
+        // ==========================================
+        function fetchLeads() {
+            fetch("/api/admin/leads")
+            .then(res => res.json())
+            .then(payload => {
+                if (payload.success) {
+                    allLeads = payload.data.leads || [];
+                    renderLeadsTable(allLeads);
+                }
+            })
+            .catch(err => console.error("Leads fetching error:", err));
+        }
+
+        // ==========================================
+        // RENDER LEADS TABLE
+        // ==========================================
+        function renderLeadsTable(leads) {
+            const tbody = document.getElementById("leads-table-body");
+            tbody.innerHTML = "";
+
+            if (leads.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">No leads found.</td></tr>`;
+                return;
+            }
+
+            leads.forEach(lead => {
+                const countryText = lead.client.country ? ` (${lead.client.country})` : "";
+                const clientInfo = `
+                    <strong>${lead.client.name}</strong><br>
+                    <span style="font-size:12px; color: var(--text-muted);">${lead.client.company}${countryText}</span><br>
+                    <span style="font-size:12px; color: var(--text-muted);">${lead.client.email} | ${lead.client.phone}</span>
+                `;
+
+                const score = lead.crm_metrics ? lead.crm_metrics.lead_score : 0;
+                let scoreColor = "#ef4444"; // Red
+                if (score >= 75) scoreColor = "#10b981"; // Green
+                else if (score >= 50) scoreColor = "#f59e0b"; // Orange
+                
+                const projInfo = `
+                    <strong>${lead.client.project}</strong> <span style="font-size:10px; font-weight:700; background:rgba(${score >= 75 ? '16,185,129' : score >= 50 ? '245,158,11' : '239,68,68'},0.15); padding:2px 6px; border-radius:10px; color:${scoreColor}; border:1px solid ${scoreColor}33; margin-left:5px;">Score: ${score}</span><br>
+                    <span style="font-size:12px; color: var(--text-muted);">${lead.client.timeline} Delivery</span>
+                `;
+
+                const price = lead.quotation && lead.quotation.total ? `₹${lead.quotation.total.toLocaleString()}` : "₹0";
+                
+                // Get badge class
+                let badgeClass = "badge-new";
+                const status = lead.status;
+                if (status === "Contacted") badgeClass = "badge-contacted";
+                else if (status === "Proposal Sent") badgeClass = "badge-proposal";
+                else if (status === "Negotiation") badgeClass = "badge-negotiation";
+                else if (status === "Won") badgeClass = "badge-won";
+                else if (status === "Lost") badgeClass = "badge-lost";
+
+                // Generate options for dropdown
+                const statuses = ["New Lead", "Contacted", "Proposal Sent", "Negotiation", "Won", "Lost"];
+                let options = "";
+                statuses.forEach(s => {
+                    options += `<option value="${s}" ${s === status ? 'selected' : ''}>${s}</option>`;
+                });
+
+                const statusSelect = `
+                    <select class="status-select" onchange="updateStatus('${lead.lead_id}', this.value)">
+                        ${options}
+                    </select>
+                `;
+
+                const downloadBtn = lead.pdf_file 
+                    ? `<a href="/api/proposal/download/${lead.pdf_file}" target="_blank" class="btn-action btn-download"><i class="fa-solid fa-file-pdf"></i> Download</a>`
+                    : `<span style="font-size:12px; color:var(--text-muted);">Not Available</span>`;
+
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td><strong>${lead.lead_id}</strong></td>
+                    <td>${clientInfo}</td>
+                    <td>${projInfo}</td>
+                    <td><strong style="color: #38bdf8;">${price}</strong></td>
+                    <td><span style="font-size:13px;">${lead.created_at || '-'}</span></td>
+                    <td>${statusSelect}</td>
+                    <td>${downloadBtn}</td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ==========================================
+        // UPDATE LEAD STATUS
+        // ==========================================
+        function updateStatus(leadId, newStatus) {
+            fetch(`/api/admin/leads/${leadId}/status`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ status: newStatus })
+            })
+            .then(res => res.json())
+            .then(payload => {
+                if (payload.success) {
+                    fetchStats(); // Update Revenue KPIs
+                    fetchLeads(); // Refresh table
+                } else {
+                    alert(payload.message);
+                }
+            })
+            .catch(err => console.error("Update status error:", err));
+        }
+
+        // ==========================================
+        // FILTER SEARCH & STATUS
+        // ==========================================
+        function filterLeads() {
+            const query = document.getElementById("lead-search").value.toLowerCase();
+            
+            let filtered = allLeads;
+            
+            // Filter by Active Status Button
+            if (activeStatusFilter !== "All") {
+                filtered = filtered.filter(l => l.status === activeStatusFilter);
+            }
+            
+            // Search text
+            if (query !== "") {
+                filtered = filtered.filter(l => {
+                    return l.client.name.toLowerCase().includes(query) ||
+                           l.client.company.toLowerCase().includes(query) ||
+                           l.client.email.toLowerCase().includes(query) ||
+                           l.lead_id.toLowerCase().includes(query) ||
+                           l.client.project.toLowerCase().includes(query);
+                });
+            }
+
+            renderLeadsTable(filtered);
+        }
+
+        function filterByStatus(status) {
+            activeStatusFilter = status;
+            
+            // Highlight active button
+            const buttons = document.querySelectorAll("#status-filters button");
+            buttons.forEach(btn => {
+                if (btn.textContent === status) {
+                    btn.classList.add("active");
+                } else {
+                    btn.classList.remove("active");
+                }
+            });
+
+            filterLeads();
+        }
+
+        // ==========================================
+        // RENDER ANALYTICS CHARTS (CHART.JS)
+        // ==========================================
+        function renderCharts(data) {
+            // 1. Revenue line chart
+            const revMonths = data.monthly_revenue.map(r => r.month);
+            const revValues = data.monthly_revenue.map(r => r.revenue);
+
+            const ctx1 = document.getElementById('revenueChart').getContext('2d');
+            if (revenueChart) {
+                revenueChart.destroy();
+            }
+            revenueChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: revMonths.length > 0 ? revMonths : ['No Data'],
+                    datasets: [{
+                        label: 'Won Revenue (₹)',
+                        data: revValues.length > 0 ? revValues : [0],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#3b82f6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#94a3b8' }
+                        }
+                    }
+                }
+            });
+
+            // 2. Project types doughnut chart
+            const projLabels = Object.keys(data.project_types);
+            const projValues = Object.values(data.project_types);
+
+            const ctx2 = document.getElementById('projectChart').getContext('2d');
+            if (projectChart) {
+                projectChart.destroy();
+            }
+            projectChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: projLabels.length > 0 ? projLabels : ['No Data'],
+                    datasets: [{
+                        data: projValues.length > 0 ? projValues : [1],
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#94a3b8', boxWidth: 12 }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+
+    <!-- ==========================================
+         APPEARANCE (THEME) MODAL
+         ========================================== -->
+    <div id="appearance-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.85); backdrop-filter:blur(12px); z-index:9999; justify-content:center; align-items:center; padding:20px;">
+        <div style="background:var(--modal-bg); border:1px solid var(--border-color); border-radius:24px; width:100%; max-width:480px; padding:30px; position:relative; box-shadow:var(--shadow);">
+            
+            <!-- Close Button -->
+            <button onclick="closeAppearanceModal()" style="position:absolute; top:20px; right:20px; background:transparent; border:none; color:var(--text-muted); font-size:22px; cursor:pointer; transition:color 0.2s;" onmouseover="this.style.color='var(--text-color)'" onmouseout="this.style.color='var(--text-muted)'">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Header -->
+            <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; color:var(--text-color); display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-palette" style="color:var(--primary);"></i> Workspace Appearance</h3>
+            <p style="color:var(--text-muted); font-size:13px; margin-bottom:20px;">Personalize your workspace experience with premium color themes. Hover for live preview.</p>
+
+            <!-- Themes List -->
+            <div id="modal-theme-list" style="display:flex; flex-direction:column; gap:12px; max-height:60vh; overflow-y:auto; padding-right:5px;">
+                <!-- Cat Theme -->
+                <div class="theme-card" data-theme-name="cat" 
+                     style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                     onmouseover="ThemeManager.previewTheme('cat')" 
+                     onmouseout="ThemeManager.revertPreview()" 
+                     onclick="ThemeManager.setTheme('cat')">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="display: flex; gap: 4px;">
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FDFBF7; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #F5EBE0; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #D5BDAF; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #D35400; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🐱 Cat Theme</h4>
+                        </div>
+                    </div>
+                    <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                    <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('cat')">Apply</button>
+                </div>
+
+                <!-- Dog Theme -->
+                <div class="theme-card" data-theme-name="dog" 
+                     style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                     onmouseover="ThemeManager.previewTheme('dog')" 
+                     onmouseout="ThemeManager.revertPreview()" 
+                     onclick="ThemeManager.setTheme('dog')">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="display: flex; gap: 4px;">
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #F7F5F0; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #E5D3B3; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #1B4F72; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #F39C12; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🐶 Dog Theme</h4>
+                        </div>
+                    </div>
+                    <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                    <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('dog')">Apply</button>
+                </div>
+
+                <!-- Pink Theme -->
+                <div class="theme-card" data-theme-name="pink" 
+                     style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                     onmouseover="ThemeManager.previewTheme('pink')" 
+                     onmouseout="ThemeManager.revertPreview()" 
+                     onclick="ThemeManager.setTheme('pink')">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="display: flex; gap: 4px;">
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FFF5F7; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FFB6C1; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #E6E6FA; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #C71585; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🌸 Pink Theme</h4>
+                        </div>
+                    </div>
+                    <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                    <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('pink')">Apply</button>
+                </div>
+
+                <!-- Blue Theme -->
+                <div class="theme-card" data-theme-name="blue" 
+                     style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                     onmouseover="ThemeManager.previewTheme('blue')" 
+                     onmouseout="ThemeManager.revertPreview()" 
+                     onclick="ThemeManager.setTheme('blue')">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="display: flex; gap: 4px;">
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #F8FAFC; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #38BDF8; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #2563EB; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #0F172A; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">💙 Blue Theme</h4>
+                        </div>
+                    </div>
+                    <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                    <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('blue')">Apply</button>
+                </div>
+
+                <!-- Dark Theme -->
+                <div class="theme-card" data-theme-name="dark" 
+                     style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                     onmouseover="ThemeManager.previewTheme('dark')" 
+                     onmouseout="ThemeManager.revertPreview()" 
+                     onclick="ThemeManager.setTheme('dark')">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="display: flex; gap: 4px;">
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #090D16; border: 1px solid rgba(255,255,255,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #1E293B; border: 1px solid rgba(255,255,255,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #3B82F6; border: 1px solid rgba(255,255,255,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #8B5CF6; border: 1px solid rgba(255,255,255,0.15);"></span>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🌙 Dark Theme</h4>
+                        </div>
+                    </div>
+                    <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                    <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('dark')">Apply</button>
+                </div>
+
+                <!-- Nature Theme -->
+                <div class="theme-card" data-theme-name="nature" 
+                     style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                     onmouseover="ThemeManager.previewTheme('nature')" 
+                     onmouseout="ThemeManager.revertPreview()" 
+                     onclick="ThemeManager.setTheme('nature')">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="display: flex; gap: 4px;">
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #F4F9F4; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #E8F5E9; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #81C784; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #2E7D32; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🌿 Nature Theme</h4>
+                        </div>
+                    </div>
+                    <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                    <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('nature')">Apply</button>
+                </div>
+
+                <!-- Sunset Theme -->
+                <div class="theme-card" data-theme-name="sunset" 
+                     style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                     onmouseover="ThemeManager.previewTheme('sunset')" 
+                     onmouseout="ThemeManager.revertPreview()" 
+                     onclick="ThemeManager.setTheme('sunset')">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="display: flex; gap: 4px;">
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FFF9F6; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FFB300; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #EF6C00; border: 1px solid rgba(0,0,0,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #D84315; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🔥 Sunset Theme</h4>
+                        </div>
+                    </div>
+                    <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                    <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('sunset')">Apply</button>
+                </div>
+
+                <!-- Cyber Theme -->
+                <div class="theme-card" data-theme-name="cyber" 
+                     style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                     onmouseover="ThemeManager.previewTheme('cyber')" 
+                     onmouseout="ThemeManager.revertPreview()" 
+                     onclick="ThemeManager.setTheme('cyber')">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="display: flex; gap: 4px;">
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #08090C; border: 1px solid rgba(255,255,255,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #00FFFF; border: 1px solid rgba(255,255,255,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FF007F; border: 1px solid rgba(255,255,255,0.15);"></span>
+                            <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FFFF00; border: 1px solid rgba(255,255,255,0.15);"></span>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🚀 Cyber Theme</h4>
+                        </div>
+                    </div>
+                    <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                    <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('cyber')">Apply</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function openAppearanceModal() {
+            document.getElementById('appearance-modal').style.display = 'flex';
+            if (typeof ThemeManager !== 'undefined') {
+                ThemeManager.updateUIElements(ThemeManager.currentTheme);
+            }
+        }
+        function closeAppearanceModal() {
+            document.getElementById('appearance-modal').style.display = 'none';
+            if (typeof ThemeManager !== 'undefined') {
+                ThemeManager.revertPreview();
+            }
+        }
+    </script>
+
+</body>
+</html>

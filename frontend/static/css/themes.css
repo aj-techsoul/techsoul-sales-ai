@@ -1,0 +1,762 @@
+/* ==========================================================
+   TechSoul AI - Premium Theme System Stylesheet
+   Centralized themes variables and element overrides
+========================================================== */
+
+/* GLOBAL TRANSITION FOR SMOOTH THEME SWITCHING */
+body, 
+header, 
+aside, 
+.sidebar, 
+.card, 
+.welcome-banner, 
+.chat-container, 
+.chat-header, 
+.chat-body, 
+.bot-message, 
+.user-message, 
+.input-area, 
+.input-area input, 
+button, 
+.btn, 
+.menu-item, 
+.menu-btn, 
+table, 
+th, 
+td, 
+input, 
+select, 
+textarea, 
+#comparison-modal > div,
+.upload-zone {
+    transition: background 0.4s ease, 
+                background-color 0.4s ease, 
+                color 0.4s ease, 
+                border-color 0.4s ease, 
+                box-shadow 0.4s ease, 
+                border-radius 0.4s ease;
+}
+
+/* ==========================================================
+   THEME PALETTE DEFINITIONS (Applied via data-theme attribute)
+========================================================== */
+
+/* 1. CAT THEME */
+[data-theme="cat"] {
+    --bg-color: #FDFBF7;
+    --card-bg: #FFFFFF;
+    --border-color: #EFE5D9;
+    --primary: #D35400;
+    --primary-hover: #A04000;
+    --primary-light: rgba(211, 84, 0, 0.1);
+    --text-color: #3E2723;
+    --text-muted: #8D6E63;
+    --sidebar-bg: #F5EBE0;
+    --btn-hover-bg: #EFE5D9;
+    --user-msg-bg: #D5BDAF;
+    --user-msg-text: #3E2723;
+    --bot-avatar-icon: "\f6be"; /* fa-cat */
+    --bot-avatar-bg: #E5A93B; /* cat gold */
+    --bot-avatar-color: #3E2723;
+    --radius: 20px;
+    --shadow: 0 8px 30px rgba(141, 110, 99, 0.1);
+    --shadow-hover: 0 12px 35px rgba(141, 110, 99, 0.18);
+    --input-bg: #FFFFFF;
+    --table-header-bg: #F5EBE0;
+    --table-row-bg: #FFFFFF;
+    --table-row-hover-bg: #FDFBF7;
+    --modal-backdrop: rgba(62, 39, 35, 0.8);
+    --modal-bg: #FFFFFF;
+    --progress-bg: #EFE5D9;
+    --progress-fill: linear-gradient(90deg, #D35400, #E5A93B);
+    --badge-info-bg: rgba(211, 84, 0, 0.15);
+    --badge-info-text: #D35400;
+    --badge-success-bg: rgba(34, 197, 94, 0.15);
+    --badge-success-text: #22C55E;
+    --badge-warning-bg: rgba(245, 158, 0, 0.15);
+    --badge-warning-text: #D35400;
+    --scrollbar-thumb: #D5BDAF;
+    --scrollbar-track: #FDFBF7;
+}
+
+/* 2. DOG THEME */
+[data-theme="dog"] {
+    --bg-color: #FDFEFE;
+    --card-bg: #F7F5F0;
+    --border-color: #EADEC9;
+    --primary: #1B4F72;
+    --primary-hover: #154360;
+    --primary-light: rgba(27, 79, 114, 0.1);
+    --text-color: #2B1E17;
+    --text-muted: #7E5109;
+    --sidebar-bg: #E5D3B3;
+    --btn-hover-bg: #D8C3A5;
+    --user-msg-bg: #1B4F72;
+    --user-msg-text: #FFFFFF;
+    --bot-avatar-icon: "\f6d3"; /* fa-dog */
+    --bot-avatar-bg: #F39C12;
+    --bot-avatar-color: #2B1E17;
+    --radius: 16px;
+    --shadow: 0 8px 24px rgba(43, 30, 23, 0.08);
+    --shadow-hover: 0 12px 30px rgba(43, 30, 23, 0.15);
+    --input-bg: #FFFFFF;
+    --table-header-bg: #EADEC9;
+    --table-row-bg: #F7F5F0;
+    --table-row-hover-bg: #FFFFFF;
+    --modal-backdrop: rgba(43, 30, 23, 0.85);
+    --modal-bg: #FDFEFE;
+    --progress-bg: #EADEC9;
+    --progress-fill: linear-gradient(90deg, #1B4F72, #F39C12);
+    --badge-info-bg: rgba(27, 79, 114, 0.15);
+    --badge-info-text: #1B4F72;
+    --badge-success-bg: rgba(30, 70, 32, 0.15);
+    --badge-success-text: #1E4620;
+    --badge-warning-bg: rgba(243, 156, 18, 0.15);
+    --badge-warning-text: #7E5109;
+    --scrollbar-thumb: #D8C3A5;
+    --scrollbar-track: #FDFEFE;
+}
+
+/* 3. PINK THEME */
+[data-theme="pink"] {
+    --bg-color: #FFF5F7;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --border-color: rgba(247, 190, 203, 0.4);
+    --primary: #C71585;
+    --primary-hover: #8B008B;
+    --primary-light: rgba(199, 21, 133, 0.1);
+    --text-color: #2E0854;
+    --text-muted: #7D5C80;
+    --sidebar-bg: rgba(255, 230, 238, 0.8);
+    --btn-hover-bg: rgba(247, 190, 203, 0.3);
+    --user-msg-bg: #C71585;
+    --user-msg-text: #FFFFFF;
+    --bot-avatar-icon: "\f501"; /* fa-sparkles */
+    --bot-avatar-bg: #FF69B4;
+    --bot-avatar-color: #FFFFFF;
+    --radius: 18px;
+    --shadow: 0 8px 32px rgba(125, 92, 128, 0.08);
+    --shadow-hover: 0 12px 36px rgba(125, 92, 128, 0.15);
+    --input-bg: rgba(255, 255, 255, 0.9);
+    --table-header-bg: rgba(255, 230, 238, 0.5);
+    --table-row-bg: rgba(255, 255, 255, 0.5);
+    --table-row-hover-bg: rgba(255, 255, 255, 0.9);
+    --modal-backdrop: rgba(46, 8, 84, 0.75);
+    --modal-bg: #FFF5F7;
+    --progress-bg: rgba(247, 190, 203, 0.3);
+    --progress-fill: linear-gradient(90deg, #C71585, #FF69B4);
+    --badge-info-bg: rgba(199, 21, 133, 0.15);
+    --badge-info-text: #C71585;
+    --badge-success-bg: rgba(16, 185, 129, 0.15);
+    --badge-success-text: #10B981;
+    --badge-warning-bg: rgba(245, 158, 11, 0.15);
+    --badge-warning-text: #C71585;
+    --scrollbar-thumb: #FFB6C1;
+    --scrollbar-track: #FFF5F7;
+    --glass-blur: blur(12px);
+}
+
+/* 4. BLUE THEME (Default Light/Corporate) */
+[data-theme="blue"] {
+    --bg-color: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --border-color: #E2E8F0;
+    --primary: #2563EB;
+    --primary-hover: #1D4ED8;
+    --primary-light: rgba(37, 99, 235, 0.1);
+    --text-color: #1E293B;
+    --text-muted: #64748B;
+    --sidebar-bg: #0F172A;
+    --btn-hover-bg: #1E293B;
+    --user-msg-bg: #2563EB;
+    --user-msg-text: #FFFFFF;
+    --bot-avatar-icon: "\f2bd"; /* fa-user-circle */
+    --bot-avatar-bg: #38BDF8;
+    --bot-avatar-color: #0F172A;
+    --radius: 12px;
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.12);
+    --input-bg: #FFFFFF;
+    --table-header-bg: #F1F5F9;
+    --table-row-bg: #FFFFFF;
+    --table-row-hover-bg: #F8FAFC;
+    --modal-backdrop: rgba(15, 23, 42, 0.85);
+    --modal-bg: #FFFFFF;
+    --progress-bg: #E2E8F0;
+    --progress-fill: linear-gradient(90deg, #2563EB, #38BDF8);
+    --badge-info-bg: rgba(37, 99, 235, 0.15);
+    --badge-info-text: #2563EB;
+    --badge-success-bg: rgba(34, 197, 94, 0.15);
+    --badge-success-text: #22C55E;
+    --badge-warning-bg: rgba(245, 158, 11, 0.15);
+    --badge-warning-text: #F59E0B;
+    --scrollbar-thumb: #CBD5E1;
+    --scrollbar-track: #F8FAFC;
+}
+
+/* 5. DARK THEME */
+[data-theme="dark"] {
+    --bg-color: #090D16;
+    --card-bg: rgba(20, 26, 42, 0.65);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --primary: #3B82F6;
+    --primary-hover: #2563EB;
+    --primary-light: rgba(59, 130, 246, 0.15);
+    --text-color: #F8FAFC;
+    --text-muted: #94A3B8;
+    --sidebar-bg: #0B0F19;
+    --btn-hover-bg: #1E293B;
+    --user-msg-bg: #3B82F6;
+    --user-msg-text: #FFFFFF;
+    --bot-avatar-icon: "\f544"; /* fa-robot */
+    --bot-avatar-bg: #8B5CF6;
+    --bot-avatar-color: #FFFFFF;
+    --radius: 14px;
+    --shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 16px 36px rgba(59, 130, 246, 0.2);
+    --input-bg: #111827;
+    --table-header-bg: #111827;
+    --table-row-bg: rgba(20, 26, 42, 0.5);
+    --table-row-hover-bg: rgba(30, 41, 59, 0.7);
+    --modal-backdrop: rgba(2, 6, 23, 0.85);
+    --modal-bg: #0D131F;
+    --progress-bg: #1E293B;
+    --progress-fill: linear-gradient(90deg, #3B82F6, #8B5CF6);
+    --badge-info-bg: rgba(59, 130, 246, 0.2);
+    --badge-info-text: #60A5FA;
+    --badge-success-bg: rgba(16, 185, 129, 0.2);
+    --badge-success-text: #34D399;
+    --badge-warning-bg: rgba(245, 158, 11, 0.2);
+    --badge-warning-text: #FBBF24;
+    --scrollbar-thumb: #1E293B;
+    --scrollbar-track: #090D16;
+}
+
+/* 6. BONUS: NATURE THEME */
+[data-theme="nature"] {
+    --bg-color: #F4F9F4;
+    --card-bg: #FFFFFF;
+    --border-color: #E1EFE1;
+    --primary: #2E7D32;
+    --primary-hover: #1B5E20;
+    --primary-light: rgba(46, 125, 50, 0.1);
+    --text-color: #1B341B;
+    --text-muted: #558B2F;
+    --sidebar-bg: #E8F5E9;
+    --btn-hover-bg: #C8E6C9;
+    --user-msg-bg: #2E7D32;
+    --user-msg-text: #FFFFFF;
+    --bot-avatar-icon: "\f4d8"; /* fa-seedling */
+    --bot-avatar-bg: #81C784;
+    --bot-avatar-color: #1B341B;
+    --radius: 15px;
+    --shadow: 0 8px 24px rgba(46, 125, 50, 0.05);
+    --shadow-hover: 0 12px 30px rgba(46, 125, 50, 0.12);
+    --input-bg: #FFFFFF;
+    --table-header-bg: #E8F5E9;
+    --table-row-bg: #FFFFFF;
+    --table-row-hover-bg: #F4F9F4;
+    --modal-backdrop: rgba(27, 94, 32, 0.8);
+    --modal-bg: #FFFFFF;
+    --progress-bg: #E1EFE1;
+    --progress-fill: linear-gradient(90deg, #2E7D32, #81C784);
+    --badge-info-bg: rgba(46, 125, 50, 0.15);
+    --badge-info-text: #2E7D32;
+    --badge-success-bg: rgba(56, 142, 60, 0.15);
+    --badge-success-text: #2E7D32;
+    --badge-warning-bg: rgba(245, 158, 11, 0.15);
+    --badge-warning-text: #E65100;
+    --scrollbar-thumb: #A5D6A7;
+    --scrollbar-track: #F4F9F4;
+}
+
+/* 7. BONUS: SUNSET THEME */
+[data-theme="sunset"] {
+    --bg-color: #FFF9F6;
+    --card-bg: #FFFFFF;
+    --border-color: #FFE6DD;
+    --primary: #D84315;
+    --primary-hover: #BF360C;
+    --primary-light: rgba(216, 67, 21, 0.1);
+    --text-color: #370028;
+    --text-muted: #EF6C00;
+    --sidebar-bg: #FFF0EB;
+    --btn-hover-bg: #FFDCCF;
+    --user-msg-bg: #D84315;
+    --user-msg-text: #FFFFFF;
+    --bot-avatar-icon: "\f185"; /* fa-sun */
+    --bot-avatar-bg: #FFB300;
+    --bot-avatar-color: #370028;
+    --radius: 16px;
+    --shadow: 0 8px 25px rgba(216, 67, 21, 0.06);
+    --shadow-hover: 0 12px 30px rgba(216, 67, 21, 0.14);
+    --input-bg: #FFFFFF;
+    --table-header-bg: #FFF0EB;
+    --table-row-bg: #FFFFFF;
+    --table-row-hover-bg: #FFF9F6;
+    --modal-backdrop: rgba(55, 0, 40, 0.8);
+    --modal-bg: #FFFFFF;
+    --progress-bg: #FFE6DD;
+    --progress-fill: linear-gradient(90deg, #D84315, #FFB300);
+    --badge-info-bg: rgba(216, 67, 21, 0.15);
+    --badge-info-text: #D84315;
+    --badge-success-bg: rgba(34, 197, 94, 0.15);
+    --badge-success-text: #22C55E;
+    --badge-warning-bg: rgba(255, 179, 0, 0.15);
+    --badge-warning-text: #EF6C00;
+    --scrollbar-thumb: #FFAB91;
+    --scrollbar-track: #FFF9F6;
+}
+
+/* 8. BONUS: CYBER THEME */
+[data-theme="cyber"] {
+    --bg-color: #08090C;
+    --card-bg: #10121A;
+    --border-color: #1E2230;
+    --primary: #00FFFF;
+    --primary-hover: #00CCCC;
+    --primary-light: rgba(0, 255, 255, 0.15);
+    --text-color: #F5F6F8;
+    --text-muted: #8A90A6;
+    --sidebar-bg: #0A0B0E;
+    --btn-hover-bg: #161922;
+    --user-msg-bg: #FF007F;
+    --user-msg-text: #FFFFFF;
+    --bot-avatar-icon: "\f2db"; /* fa-microchip */
+    --bot-avatar-bg: #00FFFF;
+    --bot-avatar-color: #08090C;
+    --radius: 8px; /* sharp gamer design */
+    --shadow: 0 8px 20px rgba(0, 255, 255, 0.05), 0 0 10px rgba(255, 0, 127, 0.05);
+    --shadow-hover: 0 12px 30px rgba(0, 255, 255, 0.1), 0 0 15px rgba(255, 0, 127, 0.1);
+    --input-bg: #161922;
+    --table-header-bg: #0A0B0E;
+    --table-row-bg: #10121A;
+    --table-row-hover-bg: #1E2230;
+    --modal-backdrop: rgba(8, 9, 12, 0.95);
+    --modal-bg: #10121A;
+    --progress-bg: #1E2230;
+    --progress-fill: linear-gradient(90deg, #00FFFF, #FF007F);
+    --badge-info-bg: rgba(0, 255, 255, 0.2);
+    --badge-info-text: #00FFFF;
+    --badge-success-bg: rgba(34, 197, 94, 0.2);
+    --badge-success-text: #22C55E;
+    --badge-warning-bg: rgba(255, 0, 127, 0.2);
+    --badge-warning-text: #FF007F;
+    --scrollbar-thumb: #1E2230;
+    --scrollbar-track: #08090C;
+}
+
+/* ==========================================================
+   ELEMENT OVERRIDES FOR THEMING
+========================================================== */
+
+/* Apply global theme backgrounds and text */
+body, html {
+    background: var(--bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Override containers with theme vars */
+.dashboard, .main, .main-content {
+    background: var(--bg-color) !important;
+}
+
+/* Sidebar */
+.sidebar {
+    background: var(--sidebar-bg) !important;
+    border-right: 1px solid var(--border-color) !important;
+}
+.sidebar .logo h2, 
+.sidebar .brand h2, 
+.sidebar .brand i {
+    color: var(--primary) !important;
+}
+.sidebar .logo span, 
+.sidebar-footer,
+.sidebar-footer small {
+    color: var(--text-muted) !important;
+}
+.sidebar .menu-item, 
+.sidebar .menu-btn {
+    color: var(--text-muted) !important;
+    border: 1px solid transparent !important;
+}
+.sidebar .menu-item:hover, 
+.sidebar .menu-btn:hover {
+    background: var(--btn-hover-bg) !important;
+    color: var(--text-color) !important;
+}
+.sidebar .menu-item.active, 
+.sidebar .menu-btn.active {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    border-color: var(--primary) !important;
+}
+
+/* Header */
+.header {
+    background: var(--card-bg) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    backdrop-filter: var(--glass-blur, none);
+}
+.header-left h2 {
+    color: var(--text-color) !important;
+}
+.header-left p, 
+.progress-area span {
+    color: var(--text-muted) !important;
+}
+
+/* Auth navigation styles */
+.auth-navigation a {
+    transition: color 0.3s;
+}
+.auth-navigation a:hover {
+    opacity: 0.8;
+}
+
+/* Progress bar area */
+.progress-bar {
+    background: var(--progress-bg) !important;
+}
+.progress-fill {
+    background: var(--progress-fill) !important;
+}
+
+/* Cards */
+.card, 
+.feature-card, 
+.project-card, 
+.proposal-card, 
+.list-row,
+.upload-zone {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow) !important;
+    color: var(--text-color) !important;
+    backdrop-filter: var(--glass-blur, none);
+}
+.card:hover, 
+.feature-card:hover, 
+.project-card:hover, 
+.proposal-card:hover {
+    box-shadow: var(--shadow-hover) !important;
+    border-color: var(--primary) !important;
+}
+.card-header h3, 
+.selector-header h3,
+.upload-zone h4 {
+    color: var(--text-color) !important;
+}
+.card-header span, 
+.selector-header p,
+.row-details p,
+.upload-zone p {
+    color: var(--text-muted) !important;
+}
+
+/* Welcome banner */
+.welcome-banner {
+    background: linear-gradient(135deg, var(--primary-light) 0%, rgba(255,255,255,0.01) 100%) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius) !important;
+}
+.welcome-text h1 {
+    color: var(--text-color) !important;
+}
+.welcome-text p {
+    color: var(--text-muted) !important;
+}
+
+/* Buttons */
+.btn, 
+button.btn, 
+form button[type="submit"], 
+.menu-btn#new-chat-btn {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    border-radius: var(--radius) !important;
+    border: none !important;
+    font-weight: 500 !important;
+}
+.btn:hover, 
+button.btn:hover, 
+form button[type="submit"]:hover,
+.menu-btn#new-chat-btn:hover {
+    background: var(--primary-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--primary-light) !important;
+}
+
+/* Chat container and headers */
+.chat-container {
+    background: var(--bg-color) !important;
+}
+.chat-header {
+    background: var(--card-bg) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+.chat-title h3 {
+    color: var(--text-color) !important;
+}
+.chat-title i {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+}
+.chat-title span {
+    color: var(--badge-info-text) !important;
+}
+
+/* Chat area, body & messages */
+.chat-area {
+    background: var(--bg-color) !important;
+}
+.chat-body, 
+.chat-box {
+    background: var(--bg-color) !important;
+}
+
+/* Chat Bubbles layout adjustments for avatars */
+.chat-box {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+.bot-message {
+    align-self: flex-start;
+    max-width: 70% !important;
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow) !important;
+    position: relative !important;
+    margin-left: 45px !important;
+    margin-bottom: 18px !important;
+}
+
+.bot-message::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: var(--bot-avatar-icon) !important;
+    position: absolute;
+    left: -45px;
+    top: 5px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bot-avatar-bg) !important;
+    color: var(--bot-avatar-color) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    box-shadow: var(--shadow);
+}
+
+.user-message {
+    align-self: flex-end;
+    max-width: 70% !important;
+    background: var(--user-msg-bg) !important;
+    color: var(--user-msg-text) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow) !important;
+    position: relative !important;
+    margin-right: 45px !important;
+    margin-bottom: 18px !important;
+    border: 1px solid transparent !important;
+}
+
+.user-message::after {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f007"; /* fa-user */
+    position: absolute;
+    right: -45px;
+    top: 5px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    box-shadow: var(--shadow);
+}
+
+/* Chat Input area */
+.input-area {
+    background: var(--card-bg) !important;
+    border-top: 1px solid var(--border-color) !important;
+}
+.input-area input {
+    background: var(--input-bg) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius) !important;
+}
+.input-area input:focus {
+    border-color: var(--primary) !important;
+}
+.input-area #send-btn {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+}
+.input-area #send-btn:hover {
+    background: var(--primary-hover) !important;
+}
+
+/* Selection panels inside chat */
+.selection-panel {
+    background: var(--bg-color) !important;
+    border-top: 1px solid var(--border-color) !important;
+}
+
+/* Forms & Inputs */
+input[type="text"], 
+input[type="email"], 
+input[type="number"], 
+input[type="password"], 
+select, 
+textarea {
+    background: var(--input-bg) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius) !important;
+    padding: 10px 14px;
+}
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="number"]:focus, 
+input[type="password"]:focus, 
+select:focus, 
+textarea:focus {
+    border-color: var(--primary) !important;
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-light) !important;
+}
+
+/* Labels and text descriptions */
+form label,
+.form-group label {
+    color: var(--text-color) !important;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse !important;
+    color: var(--text-color) !important;
+    width: 100%;
+}
+th {
+    padding: 15px;
+    border-bottom: 2px solid var(--border-color) !important;
+    color: var(--text-muted) !important;
+    font-weight: 600;
+    background: var(--table-header-bg) !important;
+}
+td {
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+    background: var(--table-row-bg) !important;
+}
+tr:hover td {
+    background: var(--table-row-hover-bg) !important;
+}
+
+/* Modals */
+#comparison-modal {
+    background: var(--modal-backdrop) !important;
+}
+#comparison-modal > div {
+    background: var(--modal-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow) !important;
+    color: var(--text-color) !important;
+}
+#comparison-modal h2, 
+#comparison-modal h3, 
+#comparison-modal h4 {
+    color: var(--text-color) !important;
+}
+#comparison-modal p {
+    color: var(--text-muted) !important;
+}
+
+/* Simulator package cards and content */
+#sim-packages-grid > div {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius) !important;
+    padding: 20px;
+}
+#sim-packages-grid > div:hover {
+    border-color: var(--primary) !important;
+}
+
+/* Cost breakdown milestones table style overrides */
+#sim-cost-breakdown-container table th {
+    background: var(--table-header-bg) !important;
+    color: var(--text-color) !important;
+}
+#sim-cost-breakdown-container table td {
+    background: var(--table-row-bg) !important;
+    color: var(--text-color) !important;
+}
+
+/* Badges & Status pills */
+.badge, 
+.status-pill {
+    font-weight: 600 !important;
+    border-radius: 20px !important;
+    padding: 4px 10px !important;
+}
+.badge-info, 
+.status-pill.info, 
+.badge-secondary {
+    background: var(--badge-info-bg) !important;
+    color: var(--badge-info-text) !important;
+}
+.badge-success, 
+.status-pill.success {
+    background: var(--badge-success-bg) !important;
+    color: var(--badge-success-text) !important;
+}
+.badge-warning, 
+.status-pill.pending {
+    background: var(--badge-warning-bg) !important;
+    color: var(--badge-warning-text) !important;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb) !important;
+    border-radius: 20px !important;
+}
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track) !important;
+}
+
+/* Hover scales for elements */
+.menu-btn, .menu-item, .card, .btn, .project-card, .feature-card {
+    transition: transform 0.2s ease, background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Responsive custom spacing */
+@media (max-width: 768px) {
+    .bot-message, .user-message {
+        max-width: 85% !important;
+    }
+}

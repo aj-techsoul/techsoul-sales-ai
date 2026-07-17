@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>TechSoul AI</title>
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/cards.css') }}">
+
+    <!-- Theme System Support -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}">
+    <script src="{{ url_for('static', filename='js/theme_manager.js') }}"></script>
+    <script>
+        (function() {
+            const localTheme = localStorage.getItem('techsoul_theme');
+            const sessionTheme = "{{ session.get('theme') or '' }}";
+            const themeToApply = sessionTheme || localTheme || 'blue';
+            document.documentElement.setAttribute('data-theme', themeToApply);
+            document.addEventListener('DOMContentLoaded', () => {
+                document.body.setAttribute('data-theme', themeToApply);
+                if (typeof ThemeManager !== 'undefined') {
+                    ThemeManager.init(sessionTheme);
+                }
+            });
+        })();
+    </script>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ========================= -->
+    <!-- SIDEBAR -->
+    <!-- ========================= -->
+
+    {% include "components/sidebar.html" %}
+
+    <!-- ========================= -->
+    <!-- MAIN -->
+    <!-- ========================= -->
+
+    <div class="main">
+
+        <!-- HEADER -->
+
+        {% include "components/header.html" %}
+
+        <!-- WORKSPACE -->
+
+        <div class="workspace">
+
+            <!-- CHAT -->
+
+            {% include "components/chat.html" %}
+
+            <!-- INFO PANEL -->
+
+            {% include "components/info_panel.html" %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================= -->
+<!-- HIDDEN PROJECT CARDS -->
+<!-- ========================= -->
+
+<div style="display:none;">
+
+    {% include "components/project_cards.html" %}
+
+</div>
+
+<!-- ========================= -->
+<!-- HIDDEN FEATURE CARDS -->
+<!-- ========================= -->
+
+<div style="display:none;">
+
+    {% include "components/feature_cards.html" %}
+
+</div>
+
+<!-- ==========================================
+     PACKAGE COMPARISON MODAL
+     ========================================== -->
+<!-- ==========================================
+     PACKAGE COMPARISON MODAL (UPGRADED AI DASHBOARD)
+     ========================================== -->
+<div id="comparison-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.85); backdrop-filter:blur(12px); z-index:9999; justify-content:center; align-items:center; padding:20px;">
+    <div style="background:#0f172a; border:1px solid rgba(255,255,255,0.08); border-radius:24px; width:100%; max-width:1150px; padding:35px; position:relative; max-height:92vh; overflow-y:auto; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+        
+        <!-- Close Button -->
+        <button onclick="closeComparisonModal()" style="position:absolute; top:25px; right:25px; background:transparent; border:none; color:#94a3b8; font-size:22px; cursor:pointer; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Header -->
+        <h2 style="font-size:26px; font-weight:700; margin-bottom:8px; color:#fff; text-align:center; letter-spacing:-0.5px;">AI Project Scoping & Package Comparison</h2>
+        <p style="color:#94a3b8; text-align:center; font-size:14px; margin-bottom:30px; max-width:600px; margin-left:auto; margin-right:auto;">Dynamically compiled using standard pricing models and Gemini AI business analysis.</p>
+
+        <!-- TOP STATS ROW -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:15px; margin-bottom:30px;" id="sim-stats-bar">
+            <!-- Loaded dynamically -->
+        </div>
+
+        <!-- SECTION 1: PACKAGES GRID -->
+        <h3 style="font-size:16px; font-weight:600; color:#38bdf8; text-transform:uppercase; letter-spacing:0.5px; border-left:3px solid #38bdf8; padding-left:10px; margin-bottom:15px;">1. Investment Packages</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:40px;" id="sim-packages-grid">
+            <!-- Loaded dynamically -->
+        </div>
+
+        <!-- SECTION 2: AI COMPLEXITY & HEALTH SCOREBOARD -->
+        <h3 style="font-size:16px; font-weight:600; color:#34d399; text-transform:uppercase; letter-spacing:0.5px; border-left:3px solid #34d399; padding-left:10px; margin-bottom:15px;">2. AI Health & Project Feasibility Scoreboard</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-bottom:40px;">
+            <!-- Score Meter Panel -->
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); padding:20px; border-radius:16px; display:flex; flex-direction:column; gap:12px;">
+                <h4 style="margin:0; font-size:14px; font-weight:600; color:#fff; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-chart-bar" style="color:#34d399;"></i> AI Business Alignment Scores</h4>
+                <div id="sim-scores-panel" style="display:flex; flex-direction:column; gap:10px;">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+            <!-- Health Panel -->
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); padding:20px; border-radius:16px; display:flex; flex-direction:column; gap:12px;">
+                <h4 style="margin:0; font-size:14px; font-weight:600; color:#fff; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-heart-pulse" style="color:#fb7185;"></i> Project Health Dashboard</h4>
+                <div id="sim-health-panel" style="display:flex; flex-direction:column; gap:10px;">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: ROADMAP & FUTURE SCALABILITY -->
+        <h3 style="font-size:16px; font-weight:600; color:#a78bfa; text-transform:uppercase; letter-spacing:0.5px; border-left:3px solid #a78bfa; padding-left:10px; margin-bottom:15px;">3. Phased Implementation Roadmap</h3>
+        <div style="display:flex; flex-direction:column; gap:15px; margin-bottom:40px;" id="sim-roadmap-timeline">
+            <!-- Loaded dynamically -->
+        </div>
+
+        <!-- SECTION 4: ARCHITECTURE & TEAM RECOMMENDER -->
+        <h3 style="font-size:16px; font-weight:600; color:#f59e0b; text-transform:uppercase; letter-spacing:0.5px; border-left:3px solid #f59e0b; padding-left:10px; margin-bottom:15px;">4. Recommended Technology Comparison & Team Composition</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-bottom:40px;">
+            <!-- Tech choice panel -->
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); padding:20px; border-radius:16px; display:flex; flex-direction:column; gap:12px;">
+                <h4 style="margin:0; font-size:14px; font-weight:600; color:#fff; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-code" style="color:#38bdf8;"></i> Core Stacks Trade-Off Comparison</h4>
+                <div id="sim-tech-compare-panel" style="display:flex; flex-direction:column; gap:12px;">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+            <!-- Team recommender -->
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); padding:20px; border-radius:16px; display:flex; flex-direction:column; gap:12px;">
+                <h4 style="margin:0; font-size:14px; font-weight:600; color:#fff; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-users" style="color:#f59e0b;"></i> Recommended Team Structure</h4>
+                <div id="sim-team-panel" style="display:flex; flex-direction:column; gap:10px;">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: COST BREAKDOWN TABLE -->
+        <h3 style="font-size:16px; font-weight:600; color:#fb7185; text-transform:uppercase; letter-spacing:0.5px; border-left:3px solid #fb7185; padding-left:10px; margin-bottom:15px;">5. Project Cost Breakdown (Milestone Estimates)</h3>
+        <div style="background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.05); border-radius:16px; padding:20px; overflow-x:auto; margin-bottom:20px;" id="sim-cost-breakdown-container">
+            <!-- Loaded dynamically -->
+        </div>
+
+    </div>
+</div>
+
+<!-- ==========================================
+     APPEARANCE (THEME) MODAL
+     ========================================== -->
+<div id="appearance-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.85); backdrop-filter:blur(12px); z-index:9999; justify-content:center; align-items:center; padding:20px;">
+    <div style="background:var(--modal-bg); border:1px solid var(--border-color); border-radius:24px; width:100%; max-width:480px; padding:30px; position:relative; box-shadow:var(--shadow);">
+        
+        <!-- Close Button -->
+        <button onclick="closeAppearanceModal()" style="position:absolute; top:20px; right:20px; background:transparent; border:none; color:var(--text-muted); font-size:22px; cursor:pointer; transition:color 0.2s;" onmouseover="this.style.color='var(--text-color)'" onmouseout="this.style.color='var(--text-muted)'">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Header -->
+        <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; color:var(--text-color); display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-palette" style="color:var(--primary);"></i> Workspace Appearance</h3>
+        <p style="color:var(--text-muted); font-size:13px; margin-bottom:20px;">Personalize your workspace experience with premium color themes. Hover for live preview.</p>
+
+        <!-- Themes List -->
+        <div id="modal-theme-list" style="display:flex; flex-direction:column; gap:12px; max-height:60vh; overflow-y:auto; padding-right:5px;">
+            <!-- Cat Theme -->
+            <div class="theme-card" data-theme-name="cat" 
+                 style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                 onmouseover="ThemeManager.previewTheme('cat')" 
+                 onmouseout="ThemeManager.revertPreview()" 
+                 onclick="ThemeManager.setTheme('cat')">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="display: flex; gap: 4px;">
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FDFBF7; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #F5EBE0; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #D5BDAF; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #D35400; border: 1px solid rgba(0,0,0,0.15);"></span>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🐱 Cat Theme</h4>
+                    </div>
+                </div>
+                <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('cat')">Apply</button>
+            </div>
+
+            <!-- Dog Theme -->
+            <div class="theme-card" data-theme-name="dog" 
+                 style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                 onmouseover="ThemeManager.previewTheme('dog')" 
+                 onmouseout="ThemeManager.revertPreview()" 
+                 onclick="ThemeManager.setTheme('dog')">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="display: flex; gap: 4px;">
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #F7F5F0; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #E5D3B3; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #1B4F72; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #F39C12; border: 1px solid rgba(0,0,0,0.15);"></span>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🐶 Dog Theme</h4>
+                    </div>
+                </div>
+                <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('dog')">Apply</button>
+            </div>
+
+            <!-- Pink Theme -->
+            <div class="theme-card" data-theme-name="pink" 
+                 style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                 onmouseover="ThemeManager.previewTheme('pink')" 
+                 onmouseout="ThemeManager.revertPreview()" 
+                 onclick="ThemeManager.setTheme('pink')">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="display: flex; gap: 4px;">
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FFF5F7; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FFB6C1; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #E6E6FA; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #C71585; border: 1px solid rgba(0,0,0,0.15);"></span>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🌸 Pink Theme</h4>
+                    </div>
+                </div>
+                <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('pink')">Apply</button>
+            </div>
+
+            <!-- Blue Theme -->
+            <div class="theme-card" data-theme-name="blue" 
+                 style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                 onmouseover="ThemeManager.previewTheme('blue')" 
+                 onmouseout="ThemeManager.revertPreview()" 
+                 onclick="ThemeManager.setTheme('blue')">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="display: flex; gap: 4px;">
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #F8FAFC; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #38BDF8; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #2563EB; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #0F172A; border: 1px solid rgba(0,0,0,0.15);"></span>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">💙 Blue Theme</h4>
+                    </div>
+                </div>
+                <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('blue')">Apply</button>
+            </div>
+
+            <!-- Dark Theme -->
+            <div class="theme-card" data-theme-name="dark" 
+                 style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                 onmouseover="ThemeManager.previewTheme('dark')" 
+                 onmouseout="ThemeManager.revertPreview()" 
+                 onclick="ThemeManager.setTheme('dark')">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="display: flex; gap: 4px;">
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #090D16; border: 1px solid rgba(255,255,255,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #1E293B; border: 1px solid rgba(255,255,255,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #3B82F6; border: 1px solid rgba(255,255,255,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #8B5CF6; border: 1px solid rgba(255,255,255,0.15);"></span>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🌙 Dark Theme</h4>
+                    </div>
+                </div>
+                <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('dark')">Apply</button>
+            </div>
+
+            <!-- Nature Theme -->
+            <div class="theme-card" data-theme-name="nature" 
+                 style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                 onmouseover="ThemeManager.previewTheme('nature')" 
+                 onmouseout="ThemeManager.revertPreview()" 
+                 onclick="ThemeManager.setTheme('nature')">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="display: flex; gap: 4px;">
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #F4F9F4; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #E8F5E9; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #81C784; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #2E7D32; border: 1px solid rgba(0,0,0,0.15);"></span>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🌿 Nature Theme</h4>
+                    </div>
+                </div>
+                <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('nature')">Apply</button>
+            </div>
+
+            <!-- Sunset Theme -->
+            <div class="theme-card" data-theme-name="sunset" 
+                 style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                 onmouseover="ThemeManager.previewTheme('sunset')" 
+                 onmouseout="ThemeManager.revertPreview()" 
+                 onclick="ThemeManager.setTheme('sunset')">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="display: flex; gap: 4px;">
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FFF9F6; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FFB300; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #EF6C00; border: 1px solid rgba(0,0,0,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #D84315; border: 1px solid rgba(0,0,0,0.15);"></span>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🔥 Sunset Theme</h4>
+                    </div>
+                </div>
+                <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('sunset')">Apply</button>
+            </div>
+
+            <!-- Cyber Theme -->
+            <div class="theme-card" data-theme-name="cyber" 
+                 style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); transition: 0.3s; cursor: pointer;"
+                 onmouseover="ThemeManager.previewTheme('cyber')" 
+                 onmouseout="ThemeManager.revertPreview()" 
+                 onclick="ThemeManager.setTheme('cyber')">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="display: flex; gap: 4px;">
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #08090C; border: 1px solid rgba(255,255,255,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #00FFFF; border: 1px solid rgba(255,255,255,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FF007F; border: 1px solid rgba(255,255,255,0.15);"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; display: inline-block; background: #FFFF00; border: 1px solid rgba(255,255,255,0.15);"></span>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; color:var(--text-color);">🚀 Cyber Theme</h4>
+                    </div>
+                </div>
+                <span class="active-badge" style="display: none; font-size: 11px; font-weight: 600; color: var(--primary);"><i class="fa-solid fa-circle-check"></i> Active</span>
+                <button class="btn theme-apply-btn" style="padding: 5px 10px; font-size: 11px; border-radius: 8px;" onclick="event.stopPropagation(); ThemeManager.setTheme('cyber')">Apply</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function openAppearanceModal() {
+        document.getElementById('appearance-modal').style.display = 'flex';
+        if (typeof ThemeManager !== 'undefined') {
+            ThemeManager.updateUIElements(ThemeManager.currentTheme);
+        }
+    }
+    function closeAppearanceModal() {
+        document.getElementById('appearance-modal').style.display = 'none';
+        if (typeof ThemeManager !== 'undefined') {
+            ThemeManager.revertPreview();
+        }
+    }
+</script>
+
+<!-- ========================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================= -->
+
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/cards.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/summary.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

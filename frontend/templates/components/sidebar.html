@@ -1,0 +1,100 @@
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
+
+<aside class="sidebar">
+
+    <!-- ==========================
+         LOGO
+    =========================== -->
+
+    <div class="logo">
+
+        <h2>TechSoul AI</h2>
+
+        <span>
+            AI Business Consultant
+        </span>
+
+    </div>
+
+    <!-- ==========================
+         MENU
+    =========================== -->
+
+    <nav class="menu">
+
+        <button
+            class="menu-btn active"
+            id="new-chat-btn">
+
+            <i class="fas fa-comments"></i>
+
+            <span>New Consultation</span>
+
+        </button>
+
+        {% if session.get("role") == "admin" %}
+            <button class="menu-btn" onclick="window.location.href='/admin'">
+                <i class="fas fa-chart-line"></i>
+                <span>Admin Dashboard</span>
+            </button>
+            <button class="menu-btn" onclick="window.location.href='/admin'">
+                <i class="fas fa-file-contract"></i>
+                <span>Proposal</span>
+            </button>
+            <button class="menu-btn" onclick="window.location.href='/admin'">
+                <i class="fas fa-users"></i>
+                <span>CRM</span>
+            </button>
+            <button class="menu-btn" onclick="openAppearanceModal()">
+                <i class="fas fa-palette"></i>
+                <span>Appearance</span>
+            </button>
+        {% else %}
+            <button class="menu-btn" onclick="window.location.href='{% if session.get("user_id") %}/dashboard{% else %}/login{% endif %}'">
+                <i class="fas fa-chart-line"></i>
+                <span>My Dashboard</span>
+            </button>
+            <button class="menu-btn" onclick="window.location.href='{% if session.get("user_id") %}/dashboard{% else %}/login{% endif %}'">
+                <i class="fas fa-file-contract"></i>
+                <span>My Proposals</span>
+            </button>
+            <button class="menu-btn" onclick="window.location.href='{% if session.get("user_id") %}/dashboard{% else %}/login{% endif %}'">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </button>
+            <button class="menu-btn" onclick="openAppearanceModal()">
+                <i class="fas fa-palette"></i>
+                <span>Appearance</span>
+            </button>
+        {% endif %}
+
+    </nav>
+
+    <!-- ==========================
+         RECENT CHATS
+    =========================== -->
+    <div class="recent-chats-container" style="margin-top: 25px; flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--border-color); padding-top: 15px; max-height: 50vh;">
+        <h4 style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 5px;">Recent Consultations</h4>
+        <div id="sidebar-chats-list" style="display: flex; flex-direction: column; gap: 5px;">
+            <!-- Loaded dynamically -->
+            <p style="font-size: 12px; color: var(--text-muted); padding: 5px 10px;">No chats yet.</p>
+        </div>
+    </div>
+
+    <!-- ==========================
+         FOOTER
+    =========================== -->
+
+    <div class="sidebar-footer">
+
+        <small>
+
+            © 2026 TechSoul AI
+
+        </small>
+
+    </div>
+
+</aside>
